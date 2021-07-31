@@ -401,3 +401,35 @@ $(document).ready(() => {
         content: 'Exit Fullscreen',
     });
 });
+
+const toggleDarkMode = mode => {
+    if (mode === undefined) {
+        if (window.darkMode === true) {
+            window.darkMode = false;
+            document.documentElement.style.setProperty('--themeColor', '#333333');
+            document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
+            document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
+        } else {
+            window.darkMode = true;
+            document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
+            document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
+            document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
+        }
+    } else {
+        if (mode === 'dark') {
+            window.darkMode = true;
+            document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
+            document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
+            document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
+        } else {
+            window.darkMode = false;
+            document.documentElement.style.setProperty('--themeColor', '#333333');
+            document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
+            document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
+        }
+    }
+}
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    toggleDarkMode('dark');
+}

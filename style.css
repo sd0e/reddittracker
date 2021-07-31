@@ -19,6 +19,12 @@
         url('font/ttf/PlusJakartaSans-ExtraBold.ttf') format('truetype');
 }
 
+:root {
+    --themeColor: #333333;
+    --lighterThemeColor: #4d4d4d;
+    --backgroundColor: #f2f2f2;
+}
+
 * {
     font-family: 'PlusJakartaSansBold', sans-serif;
 }
@@ -32,8 +38,8 @@ html {
 body {
     margin: 0;
     border: 0;
-    background-color: #f2f2f2;
-    color: #333333;
+    background-color: var(--backgroundColor);
+    color: var(--themeColor);
 }
 
 header {
@@ -47,14 +53,14 @@ header {
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
-    background-color: #f2f2f2;
+    background-color: var(--backgroundColor);
     z-index: 2;
 }
 
 .headerTitle {
     line-height: 3rem;
     vertical-align: middle;
-    color: #333333;
+    color: var(--themeColor);
     font-family: 'PlusJakartaSansMedium', sans-serif;
     margin-left: 1.5rem;
     font-size: 1.3rem;
@@ -63,6 +69,31 @@ header {
 .headerTextLeft {
     color: #d13c04;
     font-family: 'PlusJakartaSansBold', sans-serif;
+}
+
+.headerRight {
+    float: right;
+    margin-right: 1.5rem;
+}
+
+.darkModeToggleButton {
+    cursor: pointer;
+    transition: ease-in-out 0.1s;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.darkModeToggleButton:hover {
+    filter: opacity(0.8);
+}
+
+.material-icons.darkModeToggleIcon {
+    line-height: 3rem;
+    vertical-align: middle;
 }
 
 main {
@@ -77,8 +108,8 @@ main {
     width: calc(100% - 3rem);
     border-radius: 0.8rem;
     letter-spacing: 0.05rem;
-    background-color: #f2f2f2;
-    color: #4d4d4d;
+    background-color: var(--backgroundColor);
+    color: var(--lighterThemeColor);
     font-size: 1rem;
     border: none;
     padding: 1rem 1.5rem;
@@ -132,7 +163,7 @@ main {
     height: calc(100% - 3rem);
     top: 0;
     left: 0;
-    background-color: #f2f2f2;
+    background-color: var(--backgroundColor);
 }
 
 .titleHolder {
@@ -188,6 +219,9 @@ main {
     letter-spacing: 0.15rem;
     background-color: #8D8EEB;
     color: white;
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
 }
 
 .subredditHolder {
@@ -242,7 +276,7 @@ main {
 }
 
 .typeLink {
-    color: #333333;
+    color: var(--themeColor);
 }
 
 .columnTitle {
@@ -357,7 +391,7 @@ main {
     position: fixed;
     top: 1rem;
     right: 1rem;
-    background-color: #f2f2f2;
+    background-color: var(--backgroundColor);
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
@@ -385,7 +419,7 @@ small {
 }
 
 .footerAttribution {
-    color: #333333;
+    color: var(--themeColor);
     transition: 0.1s ease-in-out;
 }
 

@@ -39,6 +39,9 @@
         <a class="exitFullscreenButton" onclick="exitFullscreenMode();" style="display: none;"><span class="material-icons exitFullscreenIcon">fullscreen_exit</span></a>
         <header>
             <span class="headerTitle"><span class="headerTextLeft">Reddit</span> Tracker</span>
+            <div class="headerRight">
+                <a onclick="toggleDarkMode();" class="darkModeToggleButton"><span class="material-icons darkModeToggleIcon">dark_mode</span></a>
+            </div>
         </header>
         <main>
             <input type="text" class="redditPostInput" id="redditPostInput" placeholder="Enter any Reddit post URL" onkeyup="startReloader($('.redditPostInput').val());" onpaste="startReloader($('.redditPostInput').val());" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus/>
