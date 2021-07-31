@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="style.css">
+        <meta name="robots" content="index, follow">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="twitter:creator" content="@sebastiandoe5">
+        <meta name="title" content="Reddit Tracker | Live Reddit Post Statistics">
+        <meta name="description" content="Reddit Tracker | Live Reddit Post Statistics">
+        <meta name="twitter:title" content="Reddit Tracker">
+        <meta name="twitter:description" content="Live Reddit Post Statistics">
+        <meta property="og:title" content="Reddit Tracker">
+        <meta property="og:description" content="Live Reddit Post Statistics">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Reddit Tracker">
+        <meta name="twitter:image:alt" content="Reddit Tracker | Live Reddit Post Statistics">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#333333">
+        <meta name="msapplication-TileColor" content="#f2f2f2">
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+        <meta name="theme-color" content="#f2f2f2">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+        <script src="https://unpkg.com/@popperjs/core@2" defer></script>
+        <script src="https://unpkg.com/tippy.js@6" defer></script>
+        <script src="script.js" defer></script>
+        <title>Reddit Tracker</title>
+    </head>
+    <body>
+        <a class="exitFullscreenButton" onclick="exitFullscreenMode();" style="display: none;"><span class="material-icons exitFullscreenIcon">fullscreen_exit</span></a>
+        <header>
+            <span class="headerTitle"><span class="headerTextLeft">Reddit</span> Tracker</span>
+        </header>
+        <main>
+            <input type="text" class="redditPostInput" id="redditPostInput" placeholder="Enter any Reddit post URL" onkeyup="startReloader($('.redditPostInput').val());" onpaste="startReloader($('.redditPostInput').val());" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus/>
+            <div class="resultsHolder" style="display: none;">
+                <div class="loading" style="display: none;">Loading...</div>
+                <div class="column" style="display: none;">
+                    <span class="titleHolder">
+                        <a id="postTitle" target="_blank"></a>
+                        <span class="material-icons archviedIcon aboutIcon" aria-label="Archived" style="display: none;">inventory_2</span>
+                        <span class="material-icons lockedIcon aboutIcon" aria-label="Locked" style="display: none;">lock</span>
+                        <span class="material-icons deletedIcon aboutIcon" aria-label="Deleted" style="display: none;">delete</span>
+                    </span>
+                    <span id="postFlair" style="display: none;"></span>
+                    <span class="subredditHolder"><span class="letterR">r/</span><a id="postSubreddit" target="_blank"></a></span>
+                    <div class="resultOptions">
+                        <img id="postImage" style="display: none;"/>
+                        <a id="gallery" class="typeLink" target="_blank" style="display: none;">Click here to view gallery</a>
+                        <a id="video" class="typeLink" target="_blank" style="display: none;">Click here to view video</a>
+                        <a id="link" class="typeLink" target="_blank" style="display: none;"></a>
+                        <span id="textContents" style="display: none;">Text...</span>
+                    </div>
+                </div>
+                <div class="column shadow" style="display: none;">
+                    <span class="columnTitle" target="_blank">Post Stats</span>
+                    <a class="statHolder link" target="_blank" id="postUserHolder"><span class="material-icons statIcon" id="userIcon">account_circle</span><span class="extraText bold">u/</span><span id="postUser" class="boldStat"></a></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="scoreIcon">show_chart</span><span id="postScore" class="boldStat"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="estUpvotesIcon" style="transform: rotate(-90deg); color: #d13c04;">arrow_forward</span><span class="extraText">≈</span><span id="postUpvotes" class="boldStat"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="estDownvotesIcon" style="transform: rotate(90deg); color: #8d8eeb;">arrow_forward</span><span class="extraText">≈</span><span id="postDownvotes" class="boldStat"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="postAwards" class="boldStat"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="commentsIcon">chat</span><span id="postComments" class="boldStat"></span></span>
+                </div>
+                <div class="column shadow" style="display: none;">
+                    <span class="columnTitleHolder">
+                        <span class="material-icons liveIcon">radio_button_checked</span>Live Score
+                        <span class="columnTitleRight">
+                            <a onclick="enterFullscreenMode();" class="enterFullscreenButton"><span class="material-icons enterFullscreenIcon">fullscreen</span></a>
+                        </span>
+                    </span>
+                    <div class="canvasContainer">
+                        <canvas id="liveChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <small style="margin-bottom: -1.5rem;">Click on a title on the graph to enable or disable it.</small><br>
+        <small style="margin-bottom: -1.5rem;">Thanks to the the following for making this project possible: <a class="footerAttribution" href="https://www.reddit.com/dev/api/" target="_blank">Reddit API</a>, <a class="footerAttribution" href="https://www.chartjs.org/" target="_blank">Chart.js</a>, <a class="footerAttribution" href="https://github.com/tokotype/PlusJakartaSans" target="_blank">Plus Jakarta Sans</a>, <a class="footerAttribution" href="https://fonts.google.com/icons?selected=Material+Icons" target="_blank">Google Material Icons</a>, <a class="footerAttribution" href="https://atomiks.github.io/tippyjs/" target="_blank">Tippy.js</a> and <a class="footerAttribution" href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator</a>.</small><br>
+        <small>This project is open-source and can be viewed on <a class="footerAttribution" href="https://github.com/sebastiandoe5/reddittracker" target="_blank">GitHub</a>.</small>
+    </body>
+</html>

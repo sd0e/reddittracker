@@ -1,0 +1,394 @@
+@font-face {
+    font-family: 'PlusJakartaSansMedium';
+    src: url('font/woff2/PlusJakartaSans-Regular.woff2') format('woff2'),
+        url('font/woff/PlusJakartaSans-Regular.woff') format('woff'),
+        url('font/ttf/PlusJakartaSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PlusJakartaSansBold';
+    src: url('font/woff2/PlusJakartaSans-Bold.woff2') format('woff2'),
+        url('font/woff/PlusJakartaSans-Bold.woff') format('woff'),
+        url('font/ttf/PlusJakartaSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PlusJakartaSansExtraBold';
+    src: url('font/woff2/PlusJakartaSans-ExtraBold.woff2') format('woff2'),
+        url('font/woff/PlusJakartaSans-ExtraBold.woff') format('woff'),
+        url('font/ttf/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+}
+
+* {
+    font-family: 'PlusJakartaSansBold', sans-serif;
+}
+
+html {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    border: 0;
+    background-color: #f2f2f2;
+    color: #333333;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    line-height: 4rem;
+    vertical-align: middle;
+    left: 0;
+    right: 0;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    background-color: #f2f2f2;
+    z-index: 2;
+}
+
+.headerTitle {
+    line-height: 3rem;
+    vertical-align: middle;
+    color: #333333;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    margin-left: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.headerTextLeft {
+    color: #d13c04;
+    font-family: 'PlusJakartaSansBold', sans-serif;
+}
+
+main {
+    padding: 5.5rem 1.5rem 1.5rem 1.5rem;
+    width: calc(100% - 3rem);
+}
+
+.redditPostInput {
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    width: calc(100% - 3rem);
+    border-radius: 0.8rem;
+    letter-spacing: 0.05rem;
+    background-color: #f2f2f2;
+    color: #4d4d4d;
+    font-size: 1rem;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.resultsHolder {
+    margin-top: 3rem;
+    width: calc(100% - 3rem);
+    column-count: 3;
+    column-gap: 3rem;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .resultsHolder {
+        column-count: 2;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .resultsHolder {
+        column-count: 1;
+    }
+}
+
+.column {
+    display: block;
+    break-inside: avoid-column;
+    margin-bottom: 1.5rem;
+}
+
+.column.shadow {
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+#fullscreen {
+    position: fixed;
+    z-index: 100;
+    width: calc(100% - 3rem);
+    height: calc(100% - 3rem);
+    top: 0;
+    left: 0;
+    background-color: #f2f2f2;
+}
+
+.titleHolder {
+    display: block;
+    margin-bottom: 0.8rem;
+    line-height: 2rem;
+    vertical-align: middle;
+}
+
+#postTitle {
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s ease-in-out;
+    line-height: 2rem;
+    vertical-align: middle;
+}
+
+#postTitle:hover {
+    filter: opacity(0.8);
+}
+
+.material-icons.aboutIcon {
+    line-height: 2rem;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.material-icons.archviedIcon {
+    color: #e2be2c;
+}
+
+.material-icons.lockedIcon {
+    color: #e2be2c;
+}
+
+.material-icons.deletedIcon {
+    color: #cc0f2e;
+}
+
+#postFlair {
+    display: block;
+    width: max-content;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    line-height: 1rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    background-color: #8D8EEB;
+    color: white;
+}
+
+.subredditHolder {
+    display: inline-block;
+    line-height: 1.6rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    filter: opacity(0.8);
+    margin-bottom: 1.6rem;
+    font-size: 1.2rem;
+}
+
+.letterR {
+    line-height: 1.6rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    font-size: 1.2rem;
+}
+
+#postSubreddit {
+    line-height: 1.6rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansBold', sans-serif;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s ease-in-out;
+}
+
+#postSubreddit:hover {
+    filter: opacity(0.6);
+}
+
+#postImage {
+    width: 100%;
+    max-height: 20rem;
+    object-fit: cover;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 0.8rem;
+}
+
+#postVideo {
+    width: 100%;
+    max-height: 20rem;
+    object-fit: cover;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 0.8rem;
+}
+
+.typeLink {
+    color: #333333;
+}
+
+.columnTitle {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s ease-in-out;
+    line-height: 2rem;
+    vertical-align: middle;
+}
+
+.statHolder {
+    display: block;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.statHolder.link {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s ease-in-out;
+}
+
+.statHolder.link:hover {
+    filter: opacity(0.8);
+}
+
+.material-icons.statIcon {
+    display: inline-block;
+    line-height: 1.4rem;
+    vertical-align: middle;
+    margin-right: 1.2rem;
+    font-size: 1.5rem;
+}
+
+.extraText {
+    line-height: 1.5rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    font-size: 1.2rem;
+}
+
+.extraText.bold {
+    font-family: 'PlusJakartaSansBold', sans-serif;
+}
+
+.boldStat {
+    display: inline-block;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansBold', sans-serif;
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
+.columnTitleHolder {
+    display: block;
+    color: #d13c04;
+    filter: opacity(0.8);
+    line-height: 2rem;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    margin-bottom: 0.75rem;
+}
+
+.columnTitleHolder.fullscreen {
+    display: none;
+}
+
+.material-icons.liveIcon {
+    line-height: 2rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+.columnTitleRight {
+    float: right;
+}
+
+.enterFullscreenButton {
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.enterFullscreenButton:hover {
+    filter: opacity(0.6);
+}
+
+.material-icons.enterFullscreenIcon {
+    line-height: 2rem;
+    vertical-align: middle;
+    font-size: 1.5rem;
+}
+
+.canvasContainer {
+    height: 20rem;
+}
+
+.canvasContainer.fullscreen {
+    height: 100%;
+}
+
+.exitFullscreenButton {
+    z-index: 101;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #f2f2f2;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    line-height: 1.3rem;
+    vertical-align: middle;
+    border-radius: 0.5rem;
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.exitFullscreenButton:hover {
+    filter: opacity(0.7);
+}
+
+.exitFullscreenIcon {
+    line-height: 1.3rem;
+    vertical-align: middle;
+}
+
+small {
+    display: inline-block;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    padding: 1.5rem;
+}
+
+.footerAttribution {
+    color: #333333;
+    transition: 0.1s ease-in-out;
+}
+
+.footerAttribution:hover {
+    filter: opacity(0.8);
+}
