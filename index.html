@@ -36,15 +36,15 @@
         <title>Reddit Tracker</title>
     </head>
     <body>
-        <a class="exitFullscreenButton" onclick="exitFullscreenMode();" style="display: none;"><span class="material-icons exitFullscreenIcon">fullscreen_exit</span></a>
+        <a class="exitFullscreenButton" onclick="exitFullscreenMode();" aria-label="Exit Full Screen" style="display: none;"><span class="material-icons exitFullscreenIcon">fullscreen_exit</span></a>
         <header>
             <span class="headerTitle"><span class="headerTextLeft">Reddit</span> Tracker</span>
             <div class="headerRight">
-                <a onclick="toggleDarkMode();" class="darkModeToggleButton"><span class="material-icons darkModeToggleIcon" id="darkModeToggleIcon">dark_mode</span></a>
+                <a onclick="toggleDarkMode();" aria-label="Toggle Dark Mode" class="darkModeToggleButton"><span class="material-icons darkModeToggleIcon" id="darkModeToggleIcon">dark_mode</span></a>
             </div>
         </header>
         <main>
-            <input type="text" class="redditPostInput" id="redditPostInput" placeholder="Enter any Reddit post URL" onkeyup="startReloader($('.redditPostInput').val());" onpaste="startReloader($('.redditPostInput').val());" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus/>
+            <input type="text" class="redditPostInput" id="redditPostInput" aria-label="Enter any Reddit post URL" placeholder="Enter any Reddit post URL" onkeyup="startReloader($('.redditPostInput').val());" onpaste="startReloader($('.redditPostInput').val());" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus/>
             <div class="resultsHolder" style="display: none;">
                 <div class="loading" style="display: none;">Loading...</div>
                 <div class="column" style="display: none;">
@@ -57,33 +57,33 @@
                         <span class="material-icons adIcon aboutIcon" aria-label="Advertisement" style="display: none;">ads_click</span>
                     </span>
                     <span id="postFlair" style="display: none;"></span>
-                    <span class="subredditHolder"><span class="letterR" id="postTypePrefix"></span><a id="postSubreddit" target="_blank"></a></span>
+                    <span class="subredditHolder"><span class="letterR" id="postTypePrefix"></span><a id="postSubreddit" target="_blank" aria-label="Subreddit"></a></span>
                     <div class="resultOptions">
-                        <img id="postImage" style="display: none;"/>
-                        <a id="gallery" class="typeLink" target="_blank" style="display: none;">Click here to view gallery</a>
-                        <a id="video" class="typeLink" target="_blank" style="display: none;">Click here to view video</a>
-                        <a id="link" class="typeLink" target="_blank" style="display: none;"></a>
-                        <span id="textContents" style="display: none;">Text...</span>
+                        <img id="postImage" style="display: none;" aria-label="Post Image"/>
+                        <a id="gallery" class="typeLink" target="_blank" style="display: none;" aria-label="View Gallery">Click here to view gallery</a>
+                        <a id="video" class="typeLink" target="_blank" style="display: none;" aria-label="View Video">Click here to view video</a>
+                        <a id="link" class="typeLink" target="_blank" style="display: none;" aria-label="View Link"></a>
+                        <span id="textContents" style="display: none;">Loading...</span>
                     </div>
                 </div>
                 <div class="column shadow" style="display: none;">
                     <span class="columnTitle" target="_blank">Post Stats</span>
                     <a class="statHolder link" target="_blank" id="postUserHolder"><span class="material-icons statIcon" id="userIcon">account_circle</span><span class="extraText bold">u/</span><span id="postUser" class="boldStat"></a></span>
-                    <span class="statHolder"><span class="material-icons statIcon" id="scoreIcon">show_chart</span><span id="postScore" class="boldStat"></span></span>
-                    <span class="statHolder"><span class="material-icons statIcon" id="estUpvotesIcon" style="transform: rotate(-90deg); color: #d13c04;">arrow_forward</span><span class="extraText">≈</span><span id="postUpvotes" class="boldStat"></span></span>
-                    <span class="statHolder"><span class="material-icons statIcon" id="estDownvotesIcon" style="transform: rotate(90deg); color: #8d8eeb;">arrow_forward</span><span class="extraText">≈</span><span id="postDownvotes" class="boldStat"></span></span>
-                    <span class="statHolder"><span class="material-icons statIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="postAwards" class="boldStat"></span></span>
-                    <span class="statHolder"><span class="material-icons statIcon" id="commentsIcon">chat</span><span id="postComments" class="boldStat"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="scoreIcon">show_chart</span><span id="postScore" class="boldStat" aria-label="Post Score"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="estUpvotesIcon" style="transform: rotate(-90deg); color: #d13c04;">arrow_forward</span><span class="extraText">≈</span><span id="postUpvotes" class="boldStat" aria-label="Estimated Upvotes"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="estDownvotesIcon" style="transform: rotate(90deg); color: #8d8eeb;">arrow_forward</span><span class="extraText">≈</span><span id="postDownvotes" class="boldStat" aria-label="Estimated Downvotes"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="postAwards" class="boldStat" aria-label="Awards Received"></span></span>
+                    <span class="statHolder"><span class="material-icons statIcon" id="commentsIcon">chat</span><span id="postComments" class="boldStat" aria-label="Number of Comments"></span></span>
                 </div>
                 <div class="column shadow" style="display: none;">
-                    <span class="columnTitleHolder">
+                    <span class="columnTitleHolder" aria-label="Live Score">
                         <span class="material-icons liveIcon">radio_button_checked</span>Live Score
                         <span class="columnTitleRight">
                             <a onclick="enterFullscreenMode();" class="enterFullscreenButton"><span class="material-icons enterFullscreenIcon">fullscreen</span></a>
                         </span>
                     </span>
                     <div class="canvasContainer">
-                        <canvas id="liveChart"></canvas>
+                        <canvas id="liveChart" aria-label="Live Graph"></canvas>
                     </div>
                 </div>
                 <div class="column shadow" style="display: none;">
@@ -92,36 +92,36 @@
                     <span class="commentHolder" id="commentHolderOne">
                         <table>
                             <td class="commentNumberHolder">
-                                <span class="commentNumber one">1</span>
+                                <span class="commentNumber one" aria-label="Top Comment">1</span>
                             </td>
                             <td>
                                 <a class="commentContent" target="_blank" id="commentOneText"></a><br>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentOneScore" class="commentBoldStat"></span></span>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentOneAwards" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentOneScore" class="commentBoldStat" aria-label="Comment Score"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentOneAwards" class="commentBoldStat" aria-label="Comment Awards Received"></span></span>
                             </td>
                         </table>
                     </span>
                     <span class="commentHolder" id="commentHolderTwo">
                         <table>
                             <td class="commentNumberHolder">
-                                <span class="commentNumber two">2</span>
+                                <span class="commentNumber two" aria-label="Second Top Comment">2</span>
                             </td>
                             <td>
                                 <a class="commentContent" target="_blank" id="commentTwoText"></a><br>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentTwoScore" class="commentBoldStat"></span></span>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentTwoAwards" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentTwoScore" class="commentBoldStat" aria-label="Comment Score"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentTwoAwards" class="commentBoldStat" aria-label="Comment Awards Received"></span></span>
                             </td>
                         </table>
                     </span>
                     <span class="commentHolder" id="commentHolderThree">
                         <table>
                             <td class="commentNumberHolder">
-                                <span class="commentNumber three">3</span>
+                                <span class="commentNumber three" aria-label="Third Top Comment">3</span>
                             </td>
                             <td>
                                 <a class="commentContent" target="_blank" id="commentThreeText"></a><br>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentThreeScore" class="commentBoldStat"></span></span>
-                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentThreeAwards" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentThreeScore" class="commentBoldStat" aria-label="Comment Score"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentThreeAwards" class="commentBoldStat" aria-label="Comment Awards Received"></span></span>
                             </td>
                         </table>
                     </span>

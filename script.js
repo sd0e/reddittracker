@@ -68,6 +68,9 @@ const refreshData = () => {
             const title = data.title;
             $('#postTitle').text(title);
             $('#postTitle').attr('href', window.redditURL);
+            tippy('#postTitle', {
+                content: 'Click to view post on Reddit',
+            });
             const subreddit = data.subreddit;
             if (!subreddit.startsWith('u_')) {
                 // Subreddit
@@ -99,6 +102,9 @@ const refreshData = () => {
                     $('#postImage').attr('alt', title);
                     $('#postImage').attr('src', postURL);
                     $('#postImage').show();
+                    tippy('#postImage', {
+                        content: title,
+                    });
                 }
             } else if (text != '') {
                 // Text
@@ -112,6 +118,9 @@ const refreshData = () => {
             const user = data.author;
             $('#postUser').text(user);
             $('#postUserHolder').attr('href', 'https://www.reddit.com/u/' + user + '/');
+            tippy('#postUser', {
+                content: user,
+            });
             const score = data.ups;
             resetText('#postScore', score);
             const upvoteRatio = data.upvote_ratio;
@@ -160,13 +169,18 @@ const refreshData = () => {
 
             if (data.mobile_ad_url !== undefined) {
                 // Is an advertisement.
-                const adImageURL = data.mobile_ad_url;
-                $('#postImage').attr('alt', title);
-                $('#postImage').attr('src', adImageURL);
-                $('#postImage').css('margin-bottom', '1rem');
-                $('#postImage').show();
+                if (data.mobile_ad_url !== '') {
+                    // Has an image
+                    const adImageURL = data.mobile_ad_url;
+                    $('#postImage').attr('alt', title);
+                    $('#postImage').attr('src', adImageURL);
+                    $('#postImage').css('margin-bottom', '1rem');
+                    $('#postImage').show();
+                    tippy('#postImage', {
+                        content: title,
+                    });
+                }
                 $('.adIcon').show();
-                $('#noComments').text("This post is an ad. There are currently no comments, and it's unlikely there will be any.");
             }
 
             const date = new Date();
@@ -197,7 +211,11 @@ const refreshData = () => {
                 if (firstTopCommentIndex !== -1) {
                     const commentText = comments[firstTopCommentIndex].data.body;
                     $('#commentOneText').html(createTextPreview(commentText));
-                    $('#commentOneText').attr('href', window.redditURL + 'comment/' + comments[firstTopCommentIndex].data.id);
+                    const commentLink = window.redditURL + 'comment/' + comments[firstTopCommentIndex].data.id;
+                    $('#commentOneText').attr('href', commentLink);
+                    tippy('#commentOneText', {
+                        content: 'Click to view comment on Reddit',
+                    });
                     resetText('#commentOneScore', comments[firstTopCommentIndex].data.ups);
                     resetText('#commentOneAwards', comments[firstTopCommentIndex].data.total_awards_received);
                     $('#commentHolderOne').show();
@@ -206,7 +224,11 @@ const refreshData = () => {
                 if (secondTopCommentIndex !== -1) {
                     const commentText = comments[secondTopCommentIndex].data.body
                     $('#commentTwoText').html(createTextPreview(commentText));
-                    $('#commentTwoText').attr('href', window.redditURL + 'comment/' + comments[secondTopCommentIndex].data.id);
+                    const commentLink = window.redditURL + 'comment/' + comments[secondTopCommentIndex].data.id;
+                    $('#commentTwoText').attr('href', commentLink);
+                    tippy('#commentTwoText', {
+                        content: 'Click to view comment on Reddit',
+                    });
                     resetText('#commentTwoScore', comments[secondTopCommentIndex].data.ups);
                     resetText('#commentTwoAwards', comments[secondTopCommentIndex].data.total_awards_received);
                     $('#commentHolderTwo').show();
@@ -215,7 +237,11 @@ const refreshData = () => {
                 if (thirdTopCommentIndex !== -1) {
                     const commentText = comments[thirdTopCommentIndex].data.body;
                     $('#commentThreeText').html(createTextPreview(commentText));
-                    $('#commentThreeText').attr('href', window.redditURL + 'comment/' + comments[thirdTopCommentIndex].data.id);
+                    const commentLink = window.redditURL + 'comment/' + comments[thirdTopCommentIndex].data.id;
+                    $('#commentThreeText').attr('href', commentLink);
+                    tippy('#commentThreeText', {
+                        content: 'Click to view comment on Reddit',
+                    });
                     resetText('#commentThreeScore', comments[thirdTopCommentIndex].data.ups);
                     resetText('#commentThreeAwards', comments[thirdTopCommentIndex].data.total_awards_received);
                     $('#commentHolderThree').show();
@@ -269,13 +295,53 @@ const resetText = (selector, newVal, type = 'text') => {
     if (window.isVisible) {
         let isGreater;
         const oldVal = $(selector).text();
-        isGreater = Number(oldVal) < Number(newVal);
-        const isSmaller = Number(oldVal) > Number(newVal);
-        const isSame = oldVal == newVal;
-        if (oldVal == '') {
-            isGreater = true;
-        }
-        if (isGreater) {
+        if (Number(newVal) !== NaN) {
+            // Is a number
+            isGreater = Number(oldVal) < Number(newVal);
+            const isSmaller = Number(oldVal) > Number(newVal);
+            const isSame = oldVal == newVal;
+            if (oldVal == '') {
+                isGreater = true;
+            }
+            if (isGreater) {
+                $(selector).css('position', 'absolute');
+                $(selector).animate(
+                    { marginTop: '-=2rem' }, {
+                    complete: () => {
+                        if (type === 'text') {
+                            $(selector).text(newVal);
+                        } else if (type === 'html') {
+                            $(selector).html(newVal);
+                        }
+                        $(selector).css('margin-top', '2.2rem');
+                        $(selector).animate({ marginTop: '-=2rem' }, 500);
+                        return;
+                    }
+                });
+            } else if (isSame) {
+                if (type === 'text') {
+                    $(selector).text(newVal);
+                } else if (type === 'html') {
+                    $(selector).html(newVal);
+                }
+                return;
+            } else if (isSmaller) {
+                $(selector).css('position', 'absolute');
+                $(selector).animate(
+                    { marginTop: '+=2rem' }, {
+                    complete: () => {
+                        if (type === 'text') {
+                            $(selector).text(newVal);
+                        } else if (type === 'html') {
+                            $(selector).html(newVal);
+                        }
+                        $(selector).css('margin-top', '-1.8rem');
+                        $(selector).animate({ marginTop: '+=2rem' }, 500);
+                        return;
+                    }
+                });
+            }
+        } else {
             $(selector).css('position', 'absolute');
             $(selector).animate(
                 { marginTop: '-=2rem' }, {
@@ -287,28 +353,6 @@ const resetText = (selector, newVal, type = 'text') => {
                     }
                     $(selector).css('margin-top', '2.2rem');
                     $(selector).animate({ marginTop: '-=2rem' }, 500);
-                    return;
-                }
-            });
-        } else if (isSame) {
-            if (type === 'text') {
-                $(selector).text(newVal);
-            } else if (type === 'html') {
-                $(selector).html(newVal);
-            }
-            return;
-        } else if (isSmaller) {
-            $(selector).css('position', 'absolute');
-            $(selector).animate(
-                { marginTop: '+=2rem' }, {
-                complete: () => {
-                    if (type === 'text') {
-                        $(selector).text(newVal);
-                    } else if (type === 'html') {
-                        $(selector).html(newVal);
-                    }
-                    $(selector).css('margin-top', '-1.8rem');
-                    $(selector).animate({ marginTop: '+=2rem' }, 500);
                     return;
                 }
             });
@@ -527,6 +571,18 @@ $(document).ready(() => {
 
     tippy('.liveIcon', {
         content: 'Live Score',
+    });
+
+    tippy('.commentNumber.one', {
+        content: 'Top Comment',
+    });
+
+    tippy('.commentNumber.two', {
+        content: 'Second Top Comment',
+    });
+
+    tippy('.commentNumber.three', {
+        content: 'Third Top Comment',
     });
 });
 
