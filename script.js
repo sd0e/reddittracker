@@ -48,6 +48,7 @@ const refreshData = () => {
             $('.resultsHolder').fadeIn(100);
             $('#postFlair').hide();
             $('#postImage').hide();
+            $('#postImage').css('margin-bottom', '0');
             $('#gallery').hide();
             $('#video').hide();
             $('#link').hide();
@@ -55,8 +56,11 @@ const refreshData = () => {
             $('.archivedIcon').hide();
             $('.lockedIcon').hide();
             $('.deletedIcon').hide();
+            $('.removedIcon').hide();
+            $('.adIcon').hide();
             $('.commentHolder').hide();
             $('#noComments').hide();
+            $('#noComments').text('This post has no comments.');
 
             // Post Data
             const data = res[0].data.children[0].data;
@@ -128,6 +132,7 @@ const refreshData = () => {
             const locked = data.locked;
             if (locked) {
                 $('.lockedIcon').show();
+                $('#noComments').text("This post is locked. There are currently no comments, and it's unlikely there will be any.");
             }
             const removedString = data.removed_by_category;
             if (removedString === 'deleted') {
@@ -152,6 +157,18 @@ const refreshData = () => {
                 }
                 $('#postFlair').show();
             }
+
+            if (data.mobile_ad_url !== undefined) {
+                // Is an advertisement.
+                const adImageURL = data.mobile_ad_url;
+                $('#postImage').attr('alt', title);
+                $('#postImage').attr('src', adImageURL);
+                $('#postImage').css('margin-bottom', '1rem');
+                $('#postImage').show();
+                $('.adIcon').show();
+                $('#noComments').text("This post is an ad. There are currently no comments, and it's unlikely there will be any.");
+            }
+
             const date = new Date();
             const currentTime = `${parseNumber(date.getHours())}:${parseNumber(date.getMinutes())}`;
             addData('Score', currentTime, score);
@@ -464,6 +481,10 @@ $(document).ready(() => {
         content: 'Removed by the moderators',
     });
 
+    tippy('.adIcon', {
+        content: 'Advertisement',
+    });
+
     tippy('#userIcon', {
         content: 'User',
     });
@@ -502,6 +523,10 @@ $(document).ready(() => {
 
     tippy('.exitFullscreenButton', {
         content: 'Exit Fullscreen',
+    });
+
+    tippy('.liveIcon', {
+        content: 'Live Score',
     });
 });
 

@@ -187,6 +187,7 @@ main {
     vertical-align: middle;
     margin-left: 0.5rem;
     font-size: 1.3rem;
+    cursor: default;
 }
 
 .material-icons.archviedIcon {
@@ -203,6 +204,10 @@ main {
 
 .material-icons.removedIcon {
     color: #da1939;
+}
+
+.material-icons.adIcon {
+    color: #ebca25;
 }
 
 #postFlair {
@@ -315,6 +320,7 @@ main {
     vertical-align: middle;
     margin-right: 1.2rem;
     font-size: 1.5rem;
+    cursor: default;
 }
 
 .extraText {
@@ -356,6 +362,7 @@ main {
     line-height: 2rem;
     vertical-align: middle;
     margin-right: 0.5rem;
+    cursor: default;
 }
 
 .columnTitleRight {
@@ -497,6 +504,7 @@ small {
     vertical-align: middle;
     margin-right: 1.2rem;
     font-size: 1.5rem;
+    cursor: default;
 }
 
 .commentBoldStat {
