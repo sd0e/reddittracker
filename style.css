@@ -23,6 +23,7 @@
     --themeColor: #333333;
     --lighterThemeColor: #4d4d4d;
     --backgroundColor: #f2f2f2;
+    --columnBackgroundColor: #f2f2f2;
 }
 
 * {
@@ -118,19 +119,13 @@ main {
 .resultsHolder {
     margin-top: 3rem;
     width: calc(100% - 3rem);
-    column-count: 3;
+    column-count: 2;
     column-gap: 3rem;
     -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
     padding: 1.5rem;
     border-radius: 0.8rem;
-}
-
-@media only screen and (max-width: 1200px) {
-    .resultsHolder {
-        column-count: 2;
-    }
 }
 
 
@@ -147,6 +142,7 @@ main {
 }
 
 .column.shadow {
+    background-color: var(--columnBackgroundColor);
     -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);

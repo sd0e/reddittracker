@@ -495,38 +495,44 @@ $(document).ready(() => {
     });
 });
 
+const execMode = mode => {
+    if (mode === 'dark') {
+        // Changing to dark.
+        window.darkMode = true;
+        document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
+        document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
+        document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
+        document.documentElement.style.setProperty('--columnBackgroundColor', 'rgba(255, 255, 255, 0.02)');
+        Chart.defaults.color = '#f2f2f2';
+        liveChart.update();
+        $('#darkModeToggleIcon').text('light_mode');
+        $('#darkModeToggleIcon').css('color', '#efb701');
+    } else {
+        // Changing to light.
+        window.darkMode = false;
+        document.documentElement.style.setProperty('--themeColor', '#333333');
+        document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
+        document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
+        document.documentElement.style.setProperty('--columnBackgroundColor', '#f2f2f2');
+        Chart.defaults.color = '#333333';
+        liveChart.update();
+        $('#darkModeToggleIcon').text('dark_mode');
+        $('#darkModeToggleIcon').css('color', '#333333');
+    }
+}
+
 const toggleDarkMode = mode => {
     if (mode === undefined) {
         if (window.darkMode === true) {
-            window.darkMode = false;
-            document.documentElement.style.setProperty('--themeColor', '#333333');
-            document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
-            document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
-            Chart.defaults.color = '#333333';
-            liveChart.update();
+            execMode('light');
         } else {
-            window.darkMode = true;
-            document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
-            document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
-            document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
-            Chart.defaults.color = '#f2f2f2';
-            liveChart.update();
+            execMode('dark');
         }
     } else {
         if (mode === 'dark') {
-            window.darkMode = true;
-            document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
-            document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
-            document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
-            Chart.defaults.color = '#f2f2f2';
-            liveChart.update();
+            execMode('dark');
         } else {
-            window.darkMode = false;
-            document.documentElement.style.setProperty('--themeColor', '#333333');
-            document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
-            document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
-            Chart.defaults.color = '#333333';
-            liveChart.update();
+            execMode('light');
         }
     }
 }
