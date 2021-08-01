@@ -384,7 +384,7 @@ var liveChart = new Chart(
 
 const exitFullscreenMode = () => {
     $('.exitFullscreenButton').hide();
-    $('.column.shadow').removeAttr('id');
+    $('.canvasContainer').parent().removeAttr('id');
     $('.columnTitleHolder').removeClass('fullscreen');
     $('.canvasContainer').removeClass('fullscreen');
     if (document.exitFullscreen) {
@@ -398,7 +398,7 @@ const exitFullscreenMode = () => {
 
 const enterFullscreenMode = () => {
     $('.exitFullscreenButton').show();
-    $('.column.shadow').attr('id', 'fullscreen');
+    $('.canvasContainer').parent().attr('id', 'fullscreen');
     $('.columnTitleHolder').addClass('fullscreen');
     $('.canvasContainer').addClass('fullscreen');
     if (document.documentElement.requestFullscreen) {
