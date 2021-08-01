@@ -53,6 +53,7 @@
                         <span class="material-icons archviedIcon aboutIcon" aria-label="Archived" style="display: none;">inventory_2</span>
                         <span class="material-icons lockedIcon aboutIcon" aria-label="Locked" style="display: none;">lock</span>
                         <span class="material-icons deletedIcon aboutIcon" aria-label="Deleted" style="display: none;">delete</span>
+                        <span class="material-icons removedIcon aboutIcon" aria-label="Removed" style="display: none;">gpp_bad</span>
                     </span>
                     <span id="postFlair" style="display: none;"></span>
                     <span class="subredditHolder"><span class="letterR">r/</span><a id="postSubreddit" target="_blank"></a></span>
@@ -84,7 +85,46 @@
                         <canvas id="liveChart"></canvas>
                     </div>
                 </div>
-            </div>
+                <div class="column shadow" style="display: none;">
+                    <span class="columnTitle" target="_blank">Top Comments</span>
+                    <span id="noComments">This post has no comments.</span>
+                    <span class="commentHolder" id="commentHolderOne">
+                        <table>
+                            <td class="commentNumberHolder">
+                                <span class="commentNumber one">1</span>
+                            </td>
+                            <td>
+                                <span class="commentContent" id="commentOneText"></span><br>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentOneScore" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentOneAwards" class="commentBoldStat"></span></span>
+                            </td>
+                        </table>
+                    </span>
+                    <span class="commentHolder" id="commentHolderTwo">
+                        <table>
+                            <td class="commentNumberHolder">
+                                <span class="commentNumber two">2</span>
+                            </td>
+                            <td>
+                                <span class="commentContent" id="commentTwoText"></span><br>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentTwoScore" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentTwoAwards" class="commentBoldStat"></span></span>
+                            </td>
+                        </table>
+                    </span>
+                    <span class="commentHolder" id="commentHolderThree">
+                        <table>
+                            <td class="commentNumberHolder">
+                                <span class="commentNumber three">3</span>
+                            </td>
+                            <td>
+                                <span class="commentContent" id="commentThreeText"></span><br>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="scoreIcon">show_chart</span><span id="commentThreeScore" class="commentBoldStat"></span></span>
+                                <span class="commentStatHolder"><span class="material-icons commentStatIcon" id="awardsIcon" style="color: #46c92e;">emoji_events</span><span id="commentThreeAwards" class="commentBoldStat"></span></span>
+                            </td>
+                        </table>
+                    </span>
+                </div>
         </main>
         <small style="margin-bottom: -1.5rem;">Click on a title on the graph to enable or disable it.</small><br>
         <small style="margin-bottom: -1.5rem;">Thanks to the the following for making this project possible: <a class="footerAttribution" href="https://www.reddit.com/dev/api/" target="_blank">Reddit API</a>, <a class="footerAttribution" href="https://www.chartjs.org/" target="_blank">Chart.js</a>, <a class="footerAttribution" href="https://github.com/tokotype/PlusJakartaSans" target="_blank">Plus Jakarta Sans</a>, <a class="footerAttribution" href="https://fonts.google.com/icons?selected=Material+Icons" target="_blank">Google Material Icons</a>, <a class="footerAttribution" href="https://atomiks.github.io/tippyjs/" target="_blank">Tippy.js</a> and <a class="footerAttribution" href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator</a>.</small><br>

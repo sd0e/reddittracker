@@ -1,4 +1,5 @@
 const redditRegex = /^(http(?:s?):\/\/(?:www\.|old\.)?reddit.com\/r\/([a-zA-Z0-9_]{3,})*\/comments\/([a-zA-Z0-9]{6}))/g;
+const linkRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g;
 
 const getRedditJson = url => {
     return url + '.json';
@@ -9,6 +10,28 @@ const createTextPreview = (text, num = 200) => {
         return text.substring(0, num - 3) + '...';
     } else {
         return text;
+    }
+}
+
+// Gets the comment with the most upvotes from an array of comments
+const getTopCommentIndex = arr => {
+    window.tempIndex = 0;
+    window.topVal = '';
+    window.exists = false;
+    for (let idx = 0; idx < arr.length; idx++) {
+        if (arr[idx].kind === 't1') {
+            window.exists = true;
+            const data = arr[idx].data;
+            if (data.ups > window.topVal || window.topVal === '') {
+                window.topVal = data.ups;
+                window.tempIndex = idx;
+            }
+        }
+    }
+    if (window.exists) {
+        return window.tempIndex;
+    } else {
+        return -1;
     }
 }
 
@@ -32,6 +55,8 @@ const refreshData = () => {
             $('.archivedIcon').hide();
             $('.lockedIcon').hide();
             $('.deletedIcon').hide();
+            $('.commentHolder').hide();
+            $('#noComments').hide();
 
             // Post Data
             const data = res[0].data.children[0].data;
@@ -94,9 +119,13 @@ const refreshData = () => {
             if (locked) {
                 $('.lockedIcon').show();
             }
-            const deletedString = data.removed_by_category;
-            if (deletedString === 'deleted') {
+            const removedString = data.removed_by_category;
+            if (removedString === 'deleted') {
+                // User deleted
                 $('.deletedIcon').show();
+            } else if (removedString === 'moderator') {
+                // Moderator removed
+                $('.removedIcon').show();
             }
             const flairText = data.link_flair_text;
             if (flairText !== null) {
@@ -122,7 +151,51 @@ const refreshData = () => {
             addData('Comments', currentTime, numComments);
 
             // Comment Data
-            // const comments = res[1].data.children;
+            let comments = res[1].data.children;
+
+            if (comments.length !== 0) {
+                const firstTopCommentIndex = getTopCommentIndex(comments);
+                if (firstTopCommentIndex !== -1) {
+                    comments[firstTopCommentIndex].kind = 'used';
+                }
+                const secondTopCommentIndex = getTopCommentIndex(comments);
+                if (secondTopCommentIndex !== -1) {
+                    comments[secondTopCommentIndex].kind = 'used';
+                }
+                const thirdTopCommentIndex = getTopCommentIndex(comments);
+                if (thirdTopCommentIndex !== -1) {
+                    comments[thirdTopCommentIndex].kind = 'used';
+                }
+
+                if (firstTopCommentIndex !== -1) {
+                    const commentText = comments[firstTopCommentIndex].data.body;
+                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
+                    $('#commentOneText').html(createTextPreview(commentHTML));
+                    resetText('#commentOneScore', comments[firstTopCommentIndex].data.ups);
+                    resetText('#commentOneAwards', comments[firstTopCommentIndex].data.total_awards_received);
+                    $('#commentHolderOne').show();
+                }
+
+                if (secondTopCommentIndex !== -1) {
+                    const commentText = comments[secondTopCommentIndex].data.body;
+                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
+                    $('#commentTwoText').html(createTextPreview(commentHTML));
+                    resetText('#commentTwoScore', comments[secondTopCommentIndex].data.ups);
+                    resetText('#commentTwoAwards', comments[secondTopCommentIndex].data.total_awards_received);
+                    $('#commentHolderTwo').show();
+                }
+
+                if (thirdTopCommentIndex !== -1) {
+                    const commentText = comments[thirdTopCommentIndex].data.body;
+                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
+                    $('#commentThreeText').html(createTextPreview(commentHTML));
+                    resetText('#commentThreeScore', comments[thirdTopCommentIndex].data.ups);
+                    resetText('#commentThreeAwards', comments[thirdTopCommentIndex].data.total_awards_received);
+                    $('#commentHolderThree').show();
+                }
+            } else {
+                $('#noComments').show();
+            }
 
             $('.column').show();
         } else {
@@ -157,7 +230,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // Creates an animation which either goes up or down depending on whether the value increases or decreases.
-const resetText = (selector, newVal) => {
+const resetText = (selector, newVal, type = 'text') => {
     // System to prevent all changes animating at once when you change back to page.
     const currentTime = new Date().getTime();
     if (currentTime - window.timeSinceLast[selector] < 4000) {
@@ -180,21 +253,33 @@ const resetText = (selector, newVal) => {
             $(selector).animate(
                 { marginTop: '-=2rem' }, {
                 complete: () => {
-                    $(selector).text(newVal);
+                    if (type === 'text') {
+                        $(selector).text(newVal);
+                    } else if (type === 'html') {
+                        $(selector).html(newVal);
+                    }
                     $(selector).css('margin-top', '2.2rem');
                     $(selector).animate({ marginTop: '-=2rem' }, 500);
                     return;
                 }
             });
         } else if (isSame) {
-            $(selector).text(newVal);
+            if (type === 'text') {
+                $(selector).text(newVal);
+            } else if (type === 'html') {
+                $(selector).html(newVal);
+            }
             return;
         } else if (isSmaller) {
             $(selector).css('position', 'absolute');
             $(selector).animate(
                 { marginTop: '+=2rem' }, {
                 complete: () => {
-                    $(selector).text(newVal);
+                    if (type === 'text') {
+                        $(selector).text(newVal);
+                    } else if (type === 'html') {
+                        $(selector).html(newVal);
+                    }
                     $(selector).css('margin-top', '-1.8rem');
                     $(selector).animate({ marginTop: '+=2rem' }, 500);
                     return;
@@ -202,7 +287,11 @@ const resetText = (selector, newVal) => {
             });
         }
     } else {
-        $(selector).text(newVal);
+        if (type === 'text') {
+            $(selector).text(newVal);
+        } else if (type === 'html') {
+            $(selector).html(newVal);
+        }
         return;
     }
 }
@@ -358,7 +447,11 @@ $(document).ready(() => {
     });
 
     tippy('.deletedIcon', {
-        content: 'Deleted',
+        content: 'Deleted by user',
+    });
+
+    tippy('.removedIcon', {
+        content: 'Removed by the moderators',
     });
 
     tippy('#userIcon', {
@@ -409,11 +502,15 @@ const toggleDarkMode = mode => {
             document.documentElement.style.setProperty('--themeColor', '#333333');
             document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
             document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
+            Chart.defaults.color = '#333333';
+            liveChart.update();
         } else {
             window.darkMode = true;
             document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
             document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
             document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
+            Chart.defaults.color = '#f2f2f2';
+            liveChart.update();
         }
     } else {
         if (mode === 'dark') {
@@ -421,11 +518,15 @@ const toggleDarkMode = mode => {
             document.documentElement.style.setProperty('--themeColor', '#f2f2f2');
             document.documentElement.style.setProperty('--lighterThemeColor', '#e0e0e0');
             document.documentElement.style.setProperty('--backgroundColor', '#1f1f1f');
+            Chart.defaults.color = '#f2f2f2';
+            liveChart.update();
         } else {
             window.darkMode = false;
             document.documentElement.style.setProperty('--themeColor', '#333333');
             document.documentElement.style.setProperty('--lighterThemeColor', '#4d4d4d');
             document.documentElement.style.setProperty('--backgroundColor', '#f2f2f2');
+            Chart.defaults.color = '#333333';
+            liveChart.update();
         }
     }
 }

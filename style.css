@@ -205,11 +205,14 @@ main {
     color: #cc0f2e;
 }
 
+.material-icons.removedIcon {
+    color: #da1939;
+}
+
 #postFlair {
     display: block;
-    width: max-content;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.9rem;
@@ -425,4 +428,79 @@ small {
 
 .footerAttribution:hover {
     filter: opacity(0.8);
+}
+
+.commentHolder {
+    display: block;
+    margin-top: 1.5rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    position: relative;
+}
+
+.commentNumberHolder {
+    vertical-align: top;
+}
+
+.commentNumber {
+    display: inline-block;
+    padding: 0rem 0.55rem;
+    background-color: #dbba07;
+    color: #f2f2f2;
+    border-radius: 1rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+    margin-right: 1rem;
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+}
+
+.commentNumber.one {
+    background-color: #dbba07;
+}
+
+.commentNumber.two {
+    background-color: #b5b0b0;
+}
+
+.commentNumber.three {
+    background-color: #ad6824;
+}
+
+.commentContent {
+    filter: opacity(0.8);
+    display: inline-block;
+}
+
+.inlineLink {
+    color: var(--themeColor);
+}
+
+.commentStatHolder {
+    display: block;
+    line-height: 1.2rem;
+    vertical-align: middle;
+    margin-top: 1rem;
+    font-size: 1rem;
+    overflow-y: hidden;
+    position: relative;
+    filter: opacity(0.8);
+}
+
+.material-icons.commentStatIcon {
+    display: inline-block;
+    line-height: 1.2rem;
+    vertical-align: middle;
+    margin-right: 1.2rem;
+    font-size: 1.5rem;
+}
+
+.commentBoldStat {
+    display: inline-block;
+    line-height: 1.2rem;
+    vertical-align: middle;
+    font-family: 'PlusJakartaSansBold', sans-serif;
+    font-size: 1rem;
+    z-index: 1;
 }
