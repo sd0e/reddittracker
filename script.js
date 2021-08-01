@@ -169,17 +169,17 @@ const refreshData = () => {
 
                 if (firstTopCommentIndex !== -1) {
                     const commentText = comments[firstTopCommentIndex].data.body;
-                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
-                    $('#commentOneText').html(createTextPreview(commentHTML));
+                    $('#commentOneText').html(createTextPreview(commentText));
+                    $('#commentOneText').attr('href', window.redditURL + 'comment/' + comments[firstTopCommentIndex].data.id);
                     resetText('#commentOneScore', comments[firstTopCommentIndex].data.ups);
                     resetText('#commentOneAwards', comments[firstTopCommentIndex].data.total_awards_received);
                     $('#commentHolderOne').show();
                 }
 
                 if (secondTopCommentIndex !== -1) {
-                    const commentText = comments[secondTopCommentIndex].data.body;
-                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
-                    $('#commentTwoText').html(createTextPreview(commentHTML));
+                    const commentText = comments[secondTopCommentIndex].data.body
+                    $('#commentTwoText').html(createTextPreview(commentText));
+                    $('#commentTwoText').attr('href', window.redditURL + 'comment/' + comments[secondTopCommentIndex].data.id);
                     resetText('#commentTwoScore', comments[secondTopCommentIndex].data.ups);
                     resetText('#commentTwoAwards', comments[secondTopCommentIndex].data.total_awards_received);
                     $('#commentHolderTwo').show();
@@ -187,8 +187,8 @@ const refreshData = () => {
 
                 if (thirdTopCommentIndex !== -1) {
                     const commentText = comments[thirdTopCommentIndex].data.body;
-                    const commentHTML = commentText.replace(commentText.match(linkRegex), '<a class="inlineLink" href="' + commentText.match(linkRegex) + '" target="_blank">' + commentText.match(linkRegex) + '</a>');
-                    $('#commentThreeText').html(createTextPreview(commentHTML));
+                    $('#commentThreeText').html(createTextPreview(commentText));
+                    $('#commentThreeText').attr('href', window.redditURL + 'comment/' + comments[thirdTopCommentIndex].data.id);
                     resetText('#commentThreeScore', comments[thirdTopCommentIndex].data.ups);
                     resetText('#commentThreeAwards', comments[thirdTopCommentIndex].data.total_awards_received);
                     $('#commentHolderThree').show();

@@ -471,6 +471,13 @@ small {
 .commentContent {
     filter: opacity(0.8);
     display: inline-block;
+    text-decoration: none;
+    color: var(--themeColor);
+    transition: 0.1s ease-in-out;
+}
+
+.commentContent:hover {
+    filter: opacity(0.6);
 }
 
 .inlineLink {
