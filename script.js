@@ -1,4 +1,4 @@
-const redditRegex = /^(http(?:s?):\/\/(?:www\.|old\.)?reddit.com\/r\/([a-zA-Z0-9_]{3,})*\/comments\/([a-zA-Z0-9]{6}))/g;
+const redditRegex = /^(http(?:s?):\/\/(?:www\.|old\.)?reddit.com\/(?:r|u|user)\/([a-zA-Z0-9_-]{3,})*\/comments\/([a-zA-Z0-9]{6}))/g;
 const linkRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g;
 
 const getRedditJson = url => {
@@ -60,12 +60,22 @@ const refreshData = () => {
 
             // Post Data
             const data = res[0].data.children[0].data;
+            console.log(data);
             const title = data.title;
             $('#postTitle').text(title);
             $('#postTitle').attr('href', window.redditURL);
             const subreddit = data.subreddit;
-            $('#postSubreddit').text(subreddit);
-            $('#postSubreddit').attr('href', 'https://www.reddit.com/r/' + subreddit + '/');
+            if (!subreddit.startsWith('u_')) {
+                // Subreddit
+                $('#postTypePrefix').text('r/');
+                $('#postSubreddit').text(subreddit);
+                $('#postSubreddit').attr('href', 'https://www.reddit.com/r/' + subreddit + '/');
+            } else {
+                // User
+                $('#postTypePrefix').text('u/');
+                $('#postSubreddit').text(subreddit.slice(2));
+                $('#postSubreddit').attr('href', 'https://www.reddit.com/u/' + subreddit.slice(2) + '/');
+            }
             const postURL = data.url;
             const text = data.selftext;
             const isVideo = data.is_video;
