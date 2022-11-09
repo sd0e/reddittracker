@@ -38,7 +38,7 @@ const getTopCommentIndex = arr => {
 // Fetches the latest data about the post from the Reddit API.
 const refreshData = () => {
     $('.resultsHolder').fadeIn(100);
-    const proxy = 'https://crossrun.herokuapp.com/';
+    const proxy = 'https://crossrun.onrender.com/';
     const redditURL = window.redditURL;
     const url = proxy + getRedditJson(redditURL);
     $.get(getRedditJson(url), res => {
