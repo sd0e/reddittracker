@@ -134,6 +134,9 @@ const refreshData = () => {
             resetText('#postAwards', awards);
             const numComments = data.num_comments;
             resetText('#postComments', numComments);
+            console.log(data);
+            const upvotePercentage = data.upvote_ratio * 100;
+            resetText('#postUpvotePercentage', upvotePercentage);
             const archived = data.archived;
             if (archived) {
                 $('.archviedIcon').show();
@@ -190,6 +193,7 @@ const refreshData = () => {
             addData('Estimated Downvotes', currentTime, estDownvotes);
             addData('Awards', currentTime, awards);
             addData('Comments', currentTime, numComments);
+            addData('Upvote Percentage', currentTime, upvotePercentage);
 
             // Comment Data
             let comments = res[1].data.children;
@@ -429,6 +433,13 @@ var data = {
         label: 'Comments',
         backgroundColor: '#464545',
         borderColor: '#464545',
+        lineTension: 0.6,
+        data: [],
+        hidden: true,
+    }, {
+        label: 'Upvote Percentage',
+        backgroundColor: '#bf37a6',
+        borderColor: '#bf37a6',
         lineTension: 0.6,
         data: [],
         hidden: true,
