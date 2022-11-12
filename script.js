@@ -1,6 +1,8 @@
 const redditRegex = /^(http(?:s?):\/\/(?:www\.|old\.)?reddit.com\/(?:r|u|user)\/([a-zA-Z0-9_-]{3,})*\/comments\/([a-zA-Z0-9]{6}))/g;
 const linkRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/g;
 
+window['lastTime'] = null;
+
 const getRedditJson = url => {
     return url + '.json';
 }
@@ -64,7 +66,6 @@ const refreshData = () => {
 
             // Post Data
             const data = res[0].data.children[0].data;
-            console.log(data);
             const title = data.title;
             $('#postTitle').text(title);
             $('#postTitle').attr('href', window.redditURL);
@@ -134,9 +135,10 @@ const refreshData = () => {
             resetText('#postAwards', awards);
             const numComments = data.num_comments;
             resetText('#postComments', numComments);
-            console.log(data);
             const upvotePercentage = data.upvote_ratio * 100;
             resetText('#postUpvotePercentage', upvotePercentage);
+            // (upvotes s^{-1})
+            const derivative = window['lastTime'] !== null && window['lastTime'] !== undefined ? ((score - window['lastScore'])/((new Date().getTime() - window['lastTime'])/1000)) : null;
             const archived = data.archived;
             if (archived) {
                 $('.archviedIcon').show();
@@ -194,6 +196,7 @@ const refreshData = () => {
             addData('Awards', currentTime, awards);
             addData('Comments', currentTime, numComments);
             addData('Upvote Percentage', currentTime, upvotePercentage);
+            if (derivative) addData('Score Derivative (Upvotes Per Second)', currentTime, derivative);
 
             // Comment Data
             let comments = res[1].data.children;
@@ -255,6 +258,9 @@ const refreshData = () => {
             }
 
             $('.column').show();
+
+            window['lastTime'] = new Date().getTime();
+            window['lastScore'] = score;
         } else {
             $('.resultsHolder').hide();
         }
@@ -440,6 +446,13 @@ var data = {
         label: 'Upvote Percentage',
         backgroundColor: '#bf37a6',
         borderColor: '#bf37a6',
+        lineTension: 0.6,
+        data: [],
+        hidden: true,
+    }, {
+        label: 'Score Derivative (Upvotes Per Second)',
+        backgroundColor: '#ab6733',
+        borderColor: '#ab6733',
         lineTension: 0.6,
         data: [],
         hidden: true,
