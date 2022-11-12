@@ -196,7 +196,7 @@ const refreshData = () => {
             addData('Awards', currentTime, awards);
             addData('Comments', currentTime, numComments);
             addData('Upvote Percentage', currentTime, upvotePercentage);
-            if (derivative) addData('Score Derivative (Upvotes Per Second)', currentTime, derivative);
+            if (derivative !== null) addData('Score Derivative (Upvotes Per Second)', currentTime, derivative);
 
             // Comment Data
             let comments = res[1].data.children;
