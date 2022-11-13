@@ -516,3 +516,11 @@ small {
     font-size: 1rem;
     z-index: 1;
 }
+
+#graphHelpIcon {
+    line-height: 2rem;
+    vertical-align: middle;
+    font-size: 1.25rem;
+    color: white;
+    margin-left: 0.5rem;
+}

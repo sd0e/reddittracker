@@ -196,7 +196,7 @@ const refreshData = () => {
             addData('Awards', currentTime, awards);
             addData('Comments', currentTime, numComments);
             addData('Upvote Percentage', currentTime, upvotePercentage);
-            if (derivative !== null) addData('Score Derivative (Upvotes Per Second)', currentTime, derivative);
+            if (derivative !== null) addData('Score Derivative (Score Change Per Second)', currentTime, derivative);
 
             // Comment Data
             let comments = res[1].data.children;
@@ -437,8 +437,8 @@ var data = {
         hidden: true,
     }, {
         label: 'Comments',
-        backgroundColor: '#464545',
-        borderColor: '#464545',
+        backgroundColor: '#78800E',
+        borderColor: '#78800E',
         lineTension: 0.6,
         data: [],
         hidden: true,
@@ -450,7 +450,7 @@ var data = {
         data: [],
         hidden: true,
     }, {
-        label: 'Score Derivative (Upvotes Per Second)',
+        label: 'Score Derivative (Score Change Per Second)',
         backgroundColor: '#ab6733',
         borderColor: '#ab6733',
         lineTension: 0.6,
@@ -577,6 +577,10 @@ $(document).ready(() => {
         content: 'Comments',
     });
 
+    tippy('#percentageIcon', {
+        content: 'Upvote Percentage',
+    });
+
     tippy('#postFlair', {
         content: 'Flair',
     });
@@ -607,6 +611,10 @@ $(document).ready(() => {
 
     tippy('.commentNumber.three', {
         content: 'Third Top Comment',
+    });
+
+    tippy('#graphHelpIcon', {
+        content: 'Click on the items at the top to add or remove them from the graph',
     });
 });
 
