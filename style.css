@@ -521,6 +521,6 @@ small {
     line-height: 2rem;
     vertical-align: middle;
     font-size: 1.25rem;
-    color: white;
+    color: var(--themeColor);
     margin-left: 0.5rem;
 }
