@@ -418,10 +418,15 @@ main {
     vertical-align: middle;
 }
 
-small {
-    display: inline-block;
-    font-family: 'PlusJakartaSansMedium', sans-serif;
+footer {
     padding: 1.5rem;
+    padding-top: 0rem;
+}
+
+small {
+    display: block;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    padding-top: 1.5rem;
 }
 
 .footerAttribution {
