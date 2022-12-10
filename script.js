@@ -3,6 +3,8 @@ const linkRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:
 
 window['lastTime'] = null;
 
+const proxy = 'https://crossrun.onrender.com/';
+
 const getRedditJson = url => {
     return url + '.json';
 }
@@ -14,6 +16,13 @@ const createTextPreview = (text, num = 200) => {
         return text;
     }
 }
+
+// Pings the proxy to turn it on, decreasing response time once the user enters a valid URL
+const pingProxy = () => {
+    $.get(proxy);
+}
+
+pingProxy();
 
 // Gets the comment with the most upvotes from an array of comments
 const getTopCommentIndex = arr => {
@@ -40,7 +49,6 @@ const getTopCommentIndex = arr => {
 // Fetches the latest data about the post from the Reddit API.
 const refreshData = () => {
     $('.resultsHolder').fadeIn(100);
-    const proxy = 'https://crossrun.onrender.com/';
     const redditURL = window.redditURL;
     const url = proxy + getRedditJson(redditURL);
     $.get(getRedditJson(url), res => {
