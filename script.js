@@ -18,9 +18,7 @@ const createTextPreview = (text, num = 200) => {
 }
 
 // Pings the proxy to turn it on, decreasing response time once the user enters a valid URL
-const pingProxy = () => {
-    $.get(proxy);
-}
+const pingProxy = () => $.get(proxy);
 
 pingProxy();
 
