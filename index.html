@@ -6,10 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="style.css">
+        <title>Reddit Tracker | Live Reddit Post Statistics</title>
         <meta name="robots" content="index, follow">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-touch-fullscreen" content="yes">
-        <meta name="twitter:creator" content="@sebastiandoe5">
+        <meta name="twitter:creator" content="@sbd0e">
         <meta name="title" content="Reddit Tracker | Live Reddit Post Statistics">
         <meta name="description" content="Live Reddit Post Statistics">
         <meta name="twitter:title" content="Reddit Tracker">
@@ -42,7 +43,7 @@
 
           gtag('config', 'G-5MJPHV7D4J');
         </script>
-        <title>Reddit Tracker | Live Reddit Post Statistics</title>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
     </head>
     <body>
         <a class="exitFullscreenButton" onclick="exitFullscreenMode();" aria-label="Exit Full Screen" style="display: none;"><span class="material-icons exitFullscreenIcon">fullscreen_exit</span></a>
@@ -88,6 +89,7 @@
                 <div class="column shadow" style="display: none;">
                     <span class="columnTitleHolder" aria-label="Live Score">
                         <span class="material-icons liveIcon">radio_button_checked</span>Live Score
+                        <span class="material-icons" id="graphHelpIcon">help</span>
                         <span class="columnTitleRight">
                             <a onclick="enterFullscreenMode();" class="enterFullscreenButton"><span class="material-icons enterFullscreenIcon">fullscreen</span></a>
                         </span>
@@ -137,8 +139,22 @@
                     </span>
                 </div>
         </main>
-        <small style="margin-bottom: -1.5rem;">Click on a title on the graph to enable or disable it.</small><br>
-        <small style="margin-bottom: -1.5rem;">Thanks to the the following for making this project possible: <a class="footerAttribution" href="https://www.reddit.com/dev/api/" target="_blank">Reddit API</a>, <a class="footerAttribution" href="https://www.chartjs.org/" target="_blank">Chart.js</a>, <a class="footerAttribution" href="https://github.com/tokotype/PlusJakartaSans" target="_blank">Plus Jakarta Sans</a>, <a class="footerAttribution" href="https://fonts.google.com/icons?selected=Material+Icons" target="_blank">Google Material Icons</a>, <a class="footerAttribution" href="https://atomiks.github.io/tippyjs/" target="_blank">Tippy.js</a> and <a class="footerAttribution" href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator</a>.</small><br>
-        <small>This project is open-source and can be viewed on <a class="footerAttribution" href="https://github.com/sd0e/reddittracker" target="_blank">GitHub</a>.</small>
+        <footer>
+            <small style="margin-bottom: -1.5rem;">Click on a title on the graph to enable or disable it.</small><br>
+            <small style="margin-bottom: -1.5rem;">Thanks to the the following for making this project possible: <a
+                    class="footerAttribution" href="https://www.reddit.com/dev/api/" target="_blank">Reddit API</a>, <a
+                    class="footerAttribution" href="https://www.chartjs.org/" target="_blank">Chart.js</a>, <a
+                    class="footerAttribution" href="https://github.com/tokotype/PlusJakartaSans" target="_blank">Plus Jakarta
+                    Sans</a>, <a class="footerAttribution" href="https://fonts.google.com/icons?selected=Material+Icons"
+                    target="_blank">Google Material Icons</a>, <a class="footerAttribution"
+                    href="https://atomiks.github.io/tippyjs/" target="_blank">Tippy.js</a> and <a class="footerAttribution"
+                    href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator</a>.</small><br>
+            <small>This project is open-source and can be viewed on <a class="footerAttribution"
+                    href="https://github.com/sd0e/reddittracker" target="_blank">GitHub</a>.</small>
+            <br />
+            <a class="github-button" href="https://github.com/sd0e/reddittracker"
+                data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large"
+                aria-label="Star sd0e/reddittracker on GitHub" style="margin-left: 1.5rem">Star</a>
+        </footer>
     </body>
 </html>

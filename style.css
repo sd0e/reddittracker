@@ -418,10 +418,15 @@ main {
     vertical-align: middle;
 }
 
-small {
-    display: inline-block;
-    font-family: 'PlusJakartaSansMedium', sans-serif;
+footer {
     padding: 1.5rem;
+    padding-top: 0rem;
+}
+
+small {
+    display: block;
+    font-family: 'PlusJakartaSansMedium', sans-serif;
+    padding-top: 1.5rem;
 }
 
 .footerAttribution {
@@ -515,4 +520,12 @@ small {
     font-family: 'PlusJakartaSansBold', sans-serif;
     font-size: 1rem;
     z-index: 1;
+}
+
+#graphHelpIcon {
+    line-height: 2rem;
+    vertical-align: middle;
+    font-size: 1.25rem;
+    color: var(--themeColor);
+    margin-left: 0.5rem;
 }

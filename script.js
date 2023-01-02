@@ -3,6 +3,8 @@ const linkRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:
 
 window['lastTime'] = null;
 
+const proxy = 'https://crossrun.onrender.com/';
+
 const getRedditJson = url => {
     return url + '.json';
 }
@@ -14,6 +16,11 @@ const createTextPreview = (text, num = 200) => {
         return text;
     }
 }
+
+// Pings the proxy to turn it on, decreasing response time once the user enters a valid URL
+const pingProxy = () => $.get(proxy);
+
+pingProxy();
 
 // Gets the comment with the most upvotes from an array of comments
 const getTopCommentIndex = arr => {
@@ -40,7 +47,6 @@ const getTopCommentIndex = arr => {
 // Fetches the latest data about the post from the Reddit API.
 const refreshData = () => {
     $('.resultsHolder').fadeIn(100);
-    const proxy = 'https://crossrun.onrender.com/';
     const redditURL = window.redditURL;
     const url = proxy + getRedditJson(redditURL);
     $.get(getRedditJson(url), res => {
@@ -196,7 +202,7 @@ const refreshData = () => {
             addData('Awards', currentTime, awards);
             addData('Comments', currentTime, numComments);
             addData('Upvote Percentage', currentTime, upvotePercentage);
-            if (derivative !== null) addData('Score Derivative (Upvotes Per Second)', currentTime, derivative);
+            if (derivative !== null) addData('Score Derivative (Score Change Per Second)', currentTime, derivative);
 
             // Comment Data
             let comments = res[1].data.children;
@@ -437,8 +443,8 @@ var data = {
         hidden: true,
     }, {
         label: 'Comments',
-        backgroundColor: '#464545',
-        borderColor: '#464545',
+        backgroundColor: '#78800E',
+        borderColor: '#78800E',
         lineTension: 0.6,
         data: [],
         hidden: true,
@@ -450,7 +456,7 @@ var data = {
         data: [],
         hidden: true,
     }, {
-        label: 'Score Derivative (Upvotes Per Second)',
+        label: 'Score Derivative (Score Change Per Second)',
         backgroundColor: '#ab6733',
         borderColor: '#ab6733',
         lineTension: 0.6,
@@ -515,6 +521,7 @@ const startReloader = url => {
     clearInterval(window.interval);
     window.timeSinceLast = {};
     window.postData = [];
+    window['lastTime'] = null;
     if (url !== '') {
         if (redditRegex.test(url)) {
             // url = url.match(redditRegex)[0] + '/';
@@ -577,6 +584,10 @@ $(document).ready(() => {
         content: 'Comments',
     });
 
+    tippy('#percentageIcon', {
+        content: 'Upvote Percentage',
+    });
+
     tippy('#postFlair', {
         content: 'Flair',
     });
@@ -607,6 +618,10 @@ $(document).ready(() => {
 
     tippy('.commentNumber.three', {
         content: 'Third Top Comment',
+    });
+
+    tippy('#graphHelpIcon', {
+        content: 'Click on the items at the top to add or remove them from the graph',
     });
 });
 
