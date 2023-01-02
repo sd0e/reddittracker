@@ -517,7 +517,7 @@ const startReloader = url => {
     window.postData = [];
     if (url !== '') {
         if (redditRegex.test(url)) {
-            url = url.match(redditRegex)[0] + '/';
+            // url = url.match(redditRegex)[0] + '/';
             window.redditURL = url;
             clearInterval(window.interval);
             refreshData();
